@@ -1,0 +1,119 @@
+1.Why do we need static keywords in java to explain with an example?
+Ans→ The static keyword in Java is used to indicate that a method or variable belongs to the class, rather than to an instance of the class. This means that the method or variable can be called or accessed without having to create an instance of the class.
+Static methods and variables are typically used when you want to provide a common function or value to all instances of a class, without having to create an instance of the class to access it. For example, you might use a static method to compute the maximum value of a set of numbers, or a static variable to store a constant value that is shared by all instances of a class.
+Here's an example that demonstrates the use of the static keyword in Java:
+public class MathUtils {
+    public static final double PI = 3.14;
+
+    public static double max(double a, double b) {
+        return (a > b) ? a : b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Pi: " + MathUtils.PI);
+        System.out.println("Max: " + MathUtils.max(10, 20));
+    }
+}
+
+2. What is class loading and how does java program actually executes?
+Ans--> Class loading is the process by which Java classes are loaded into the Java Virtual Machine (JVM) at runtime. The JVM uses a class loader to load the classes required by a Java program. The class loader is responsible for finding the compiled .class files for the required classes, reading them into memory, and linking them so that they can be executed by the JVM.
+
+Class loading occurs in the following steps:
+
+1.Finding the class: The class loader uses the fully qualified class name to search for the .class file that contains the compiled version of the class.
+
+2.Reading the class: The class loader reads the .class file into memory and converts the binary data into an internal representation that the JVM can use to execute the class.
+
+3.Verifying the class: The class loader verifies that the class is well-formed and that it adheres to the Java class file format specification. If the class file is not well-formed, the class loader throws a VerifyError.
+
+4Preparing the class: The class loader assigns memory for the class variables and initializes them to their default values.
+
+5.Linking the class: The class loader links the class to the required classes, such as its superclass and any interfaces that it implements. This step includes resolving symbolic references to other classes and checking that the class has the required access permissions.
+
+Once the class is loaded and linked, it can be executed by the JVM. When a method is invoked on an instance of a class, the JVM checks to see if the required classes have already been loaded and linked. If they have, the method is executed directly. If not, the class loader is used to load the required classes.
+
+In summary, class loading is a critical part of the Java execution process, as it ensures that the required classes are loaded into the JVM and linked together so that they can be executed by the JVM.
+
+Q3. Can we mark a local varriable as static?
+Ans--> No, it is not possible to mark a local variable as static. The static keyword is used to indicate that a field or method belongs to the class and not to an instance of the class. Local variables, on the other hand, are variables that are declared within a method and only have scope within that method. They are not associated with the class and cannot be marked as static.
+
+If you want to declare a variable that has class-level scope, you should declare it as a class variable (also known as a static field) rather than a local variable. A class variable can be accessed from any method of the class and is shared by all instances of the class. For example:
+
+public class MyClass {
+    private static int classVariable;
+
+    public void myMethod() {
+        int localVariable = 0;
+        // ...
+    }
+}
+
+Q4. Why is the static block is executed before the main method in java?
+Ans--> The reason that the static block is executed before the main method is because the main method is a standard entry point for a Java program. Before the main method can be executed, the JVM must load the class that contains the main method and any other classes required by the program.
+
+The static block is often used to perform one-time initializations for a class, such as setting the value of a static field, creating objects that are shared by all instances of the class, or registering the class with some other component of the system. By executing the static block before the main method, the JVM ensures that the necessary initializations are performed before the program begins execution.
+
+Here's an example of how a static block might be used:
+
+public class MyClass {
+    private static int classVariable;
+
+    static {
+        classVariable = 42;
+        System.out.println("Static block executed");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed");
+    }
+}
+
+When this program is run, the following output is produced:
+
+Static block executed
+Main method executed
+
+
+Q5. Why is a static method is also called class method?
+Ans--> A static method in Java is also called a class method because it belongs to the class rather than to an instance of the class. Unlike instance methods, which are associated with a specific instance of a class, static methods can be called without creating an instance of the class. Instead, they are called using the name of the class itself.
+
+Q6. What is the use of static block in java?
+Ans--> The static block is often used to perform one-time initializations for a class, such as setting the value of a static field, creating objects that are shared by all instances of the class, or registering the class with some other component of the system. By executing the static block when the class is first loaded, the JVM ensures that the necessary initializations are performed before the class is used.
+
+Here's an example of how a static block might be used:
+
+public class MyClass {
+    private static int classVariable;
+
+    static {
+        classVariable = 42;
+        System.out.println("Static block executed");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed");
+    }
+}
+
+In this example, the static block sets the value of classVariable to 42 and prints a message to indicate that the static block has been executed. The main method is a standard entry point for a Java program and is executed after the class has been loaded and any static blocks have been run. When this program is run, the following output is produced:
+Static block executed
+Main method executed
+
+As you can see, the static block is executed before the main method, even though the main method is defined first in the source code. This demonstrates that the static block is executed when the class is first loaded, before any methods of the class are executed.
+
+Q7. Difference between static and istance varriable?
+Ans--> Static variables (also known as class variables) and instance variables (also known as object variables) are two different types of variables in Java. The key difference between them is the way they are associated with a class and its instances.
+
+Static variables are associated with the class itself and are shared by all instances of the class. There is only one copy of a static variable, regardless of how many instances of the class are created. When a static variable is changed, that change is reflected in all instances of the class.
+
+Instance variables, on the other hand, are associated with a specific instance of a class and are unique to that instance. Each instance of a class has its own copy of instance variables, and changes to an instance variable in one instance do not affect the values of the same instance variable in other instances.
+
+Q8. Difference between static and non static members?
+Ans--> Static members and non-static members (also known as instance members) are two different types of members in Java. The key difference between them is the way they are associated with a class and its instances.
+
+Static members are associated with the class itself, and there is only one copy of a static member, regardless of how many instances of the class are created. To access a static member, you use the class name followed by the member name, like this: ClassName.memberName.
+
+Non-static members, on the other hand, are associated with a specific instance of a class and are unique to that instance. Each instance of a class has its own copy of non-static members, and changes to a non-static member in one instance do not affect the values of the same member in other instances. To access a non-static member, you need to create an instance of the class and then access the member through that instance, like this: 
+instanceName.memberName.
